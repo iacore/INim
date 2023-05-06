@@ -35,7 +35,7 @@ suite "Interface Tests":
       """let a = "A"""",
       "a"
     ]
-    require getResponse(inputStream, outputStream, defLines) == "A == type string"
+    require getResponse(inputStream, outputStream, defLines) == "A : string"
 
     let typeLines = @[
       "type B = object",
@@ -43,14 +43,14 @@ suite "Interface Tests":
       "",
       "B"
     ]
-    require getResponse(inputStream, outputStream, typeLines) == "B == type B"
-    require getResponse(inputStream, outputStream, @["B.c"]) == "string == type string"
+    require getResponse(inputStream, outputStream, typeLines) == "B : B"
+    require getResponse(inputStream, outputStream, @["B.c"]) == "string : string"
 
     let varLines = @[
       """var g = B(c: "C")""",
       "g"
     ]
-    require getResponse(inputStream, outputStream, varLines) == """(c: "C") == type B"""
+    require getResponse(inputStream, outputStream, varLines) == """(c: "C") : B"""
 
     # Make sure we're not creating more errors when we type in code that wouldn't compile normally
     let jankLines = @[
@@ -83,19 +83,19 @@ suite "Interface Tests":
     let chdirLines = @[
       """cd "tests/test_dir"""",
     ]
-    require getResponse(inputStream, outputStream, chdirLines) == testDirName & " == type string"
+    require getResponse(inputStream, outputStream, chdirLines) == testDirName & " : string"
 
     # Test ls
     let lsLines = @[
       """ls()""",
     ]
-    require getResponse(inputStream, outputStream, lsLines) == """@["a1", "a2"] == type seq[string]"""
+    require getResponse(inputStream, outputStream, lsLines) == """@["a1", "a2"] : seq[string]"""
 
     # Test pwd
     let pwdLines = @[
       """pwd()""",
     ]
-    require getResponse(inputStream, outputStream, pwdLines) == testDirName & " == type string"
+    require getResponse(inputStream, outputStream, pwdLines) == testDirName & " : string"
 
     let callLines = @[
       """call "echo A"""",

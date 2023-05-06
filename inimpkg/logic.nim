@@ -1,10 +1,10 @@
 # MIT License
 # Copyright (c) 2018 Andrei Regiani
 
-import os, osproc, strutils, terminal, sequtils,
-       times, strformat, parsecfg, hotcodereloading
-#import noise
-from sequtils import filterIt
+import std/[os, osproc, strutils, terminal, sequtils,
+       times, strformat, hotcodereloading]
+
+from std/sequtils import filterIt
 
 # Lists available builtin commands
 var commands*: seq[string] = @[]
@@ -485,7 +485,7 @@ call(cmd) - Execute command cmd in current shell
 
     # Save the current expression as an echo
     currentExpression = if app.showTypes:
-        fmt"""echo $({currentExpression}) & " == " & "type " & $(type({currentExpression}))"""
+        fmt"""echo $({currentExpression}) & " : " & $(type({currentExpression}))"""
       else:
         fmt"""echo $({currentExpression})"""
     buffer.writeLine(currentExpression)

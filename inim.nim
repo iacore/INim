@@ -458,7 +458,7 @@ call(cmd) - Execute command cmd in current shell
 
     # Save the current expression as an echo
     currentExpression = if app.showTypes:
-        fmt"""echo $({currentExpression}) & " == " & "type " & $(type({currentExpression}))"""
+        fmt"""echo $({currentExpression}) & " : " & $(type({currentExpression}))"""
       else:
         fmt"""echo $({currentExpression})"""
     buffer.writeLine(currentExpression)
